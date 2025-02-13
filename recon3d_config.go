@@ -41,6 +41,7 @@ func main() {
 		if strings.Contains(line, "Instance ID") {
 			id = strings.Split(line, ":")[1]
 			id = strings.TrimSpace(id)
+			id = strings.TrimPrefix(id, "SWD\\MMDEVAPI\\")
 		}
 		if strings.Contains(line, "Device Description") {
 			description = strings.Split(line, ":")[1]
