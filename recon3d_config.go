@@ -8,24 +8,19 @@ import (
 )
 
 func main() {
-	// Check if the program is running with administrator privileges
-	if !isAdmin() {
-		// Restart the program with administrator privileges if not already running as admin
-		cmd := exec.Command("powershell", "Start-Process", os.Args[0], "-Verb", "runAs")
-		err := cmd.Run()
-		if err != nil {
-			fmt.Println("Error restarting with admin privileges:", err)
-			return
-		}
-		return
-	}
+
+	// Change the working directory to System32
+	windir := os.Getenv("windir")
+	system32Dir := windir + "\\System32"
+	os.Chdir(system32Dir)
 
 	// Set initial state for Render and Capture devices
 	renderFound := false
 	captureFound := false
 
 	// Enumerate AudioEndpoint devices
-	output, err := exec.Command("pnputil", "-enum-devices", "/connected", "/class", "AudioEndpoint").Output()
+	cmd := exec.Command("pnputil", "-enum-devices", "/connected", "/class", "AudioEndpoint")
+	output, err := cmd.Output()
 	if err != nil {
 		fmt.Println("Error executing pnputil:", err)
 		fmt.Println("Press any key to exit...")
@@ -80,14 +75,6 @@ func main() {
 	fmt.Println("Recon3D Control Panel Configured Successfully")
 	fmt.Println("Press any key to exit...")
 	fmt.Scanln()
-}
-
-// isAdmin checks if the program is running with administrator privileges
-func isAdmin() bool {
-	// Check if the program is running with elevated privileges (admin rights)
-	cmd := exec.Command("net", "session")
-	err := cmd.Run()
-	return err == nil
 }
 
 // addRegistryEntry adds the registry entry for the device ID
