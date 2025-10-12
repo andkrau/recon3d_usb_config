@@ -1,6 +1,4 @@
 @ECHO OFF
-TITLE Loading...
-Net session >nul 2>&1 || (powershell start -verb runas '%0' &exit /b)
 TITLE Recon3D Configuration
 COLOR 9F
 SET RENDER_FOUND=FALSE
