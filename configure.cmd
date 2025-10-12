@@ -25,6 +25,8 @@ echo.  ▓▓▓▓▓              ▓▓▓▓▓▓▓▓▓▓▓▓▓▓�
 echo.
 
 :VERSION
+where pnputil >nul 2>&1
+if %errorlevel% NEQ 0 goto :UNSUPPORTED
 pnputil /? | findstr /C:"/enum-devices" >nul
 if %errorlevel% NEQ 0 goto :UNSUPPORTED
 
