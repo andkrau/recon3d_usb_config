@@ -36,9 +36,8 @@ if "%MIXER%" EQU "" goto MIXER_MISSING
 FOR /F "skip=2 tokens=1* delims=:" %%a IN ('pnputil -enum-devices /connected /class "AudioEndpoint"') DO CALL :CHECK_ENDPOINTS "%%a" "%%b"
 IF "%RENDER_FOUND%" EQU "FALSE" GOTO RENDER_NOT_DETECTED
 IF "%CAPTURE_FOUND%" EQU "FALSE" GOTO CAPTURE_NOT_DETECTED
-ECHO Recon3D Control Panel Configured Successfully
-PAUSE>nul
-exit
+
+GOTO SUCCESS
 
 :CHECK_ENDPOINTS
 IF "%~1" EQU "Instance ID" for /f "tokens=3 delims=\" %%a in ("%~2") do set ID=%%a
@@ -59,18 +58,35 @@ GOTO :EOF
 
 :RENDER_NOT_DETECTED
 ECHO.
-ECHO. Recon3D speaker not detected!
+ECHO. Speaker not detected!
 PAUSE>nul
 EXIT
 
 :CAPTURE_NOT_DETECTED
 ECHO.
-ECHO. Recon3D microphone not detected!
+ECHO. Microphone not detected!
+PAUSE>nul
+EXIT
+
+:REG_MISSING
+ECHO.
+ECHO. Registry entries not found!
+PAUSE>nul
+EXIT
+
+:MIXER_MISSING
+ECHO.
+ECHO. Could not find sound mixer!
 PAUSE>nul
 EXIT
 
 :UNSUPPORTED
 ECHO.
-ECHO. Windows 10 and above required!
+ECHO. Windows 10 or above is required!
 PAUSE>nul
 EXIT
+
+:SUCCESS
+ECHO. Sound Blaster Recon 3D Control Panel configured Successfully
+PAUSE>nul
+exit
