@@ -6,6 +6,10 @@ COLOR 9F
 SET RENDER_FOUND=FALSE
 SET CAPTURE_FOUND=FALSE
 
+:VERSION
+pnputil /? | findstr /C:"/enum-devices" >nul
+if %errorlevel% NEQ 0 GOTO UNSUPPORTED
+
 :DEVICE
 FOR /F "skip=2 tokens=1* delims=:" %%a IN ('pnputil -enum-devices /connected /class "AudioEndpoint"') DO CALL :CHECK_ENDPOINTS "%%a" "%%b"
 IF "%RENDER_FOUND%" EQU "FALSE" GOTO RENDER_NOT_DETECTED
@@ -40,5 +44,11 @@ EXIT
 :CAPTURE_NOT_DETECTED
 ECHO.
 ECHO. Recon3D microphone not detected!
+PAUSE>nul
+EXIT
+
+:UNSUPPORTED
+ECHO.
+ECHO. Windows 10 and above required!
 PAUSE>nul
 EXIT
