@@ -3,10 +3,34 @@ TITLE Recon3D Configuration
 COLOR 9F
 SET RENDER_FOUND=FALSE
 SET CAPTURE_FOUND=FALSE
+SET "LANGUAGE=Default"
+SET "MIXER="
+SET "SPEAKER="
+SET "MICROPHONE="
+SET "BASE=HKEY_LOCAL_MACHINE\SOFTWARE\Creative Tech\KSAud"
 
 :VERSION
 pnputil /? | findstr /C:"/enum-devices" >nul
 if %errorlevel% NEQ 0 GOTO UNSUPPORTED
+
+:REGISTRY
+reg query "%BASE%" >nul 2>&1
+if %errorlevel% NEQ 0 goto REG_MISSING
+CALL :ASSIGN_STRING "%BASE%\MixerName" Spk SPEAKER
+CALL :ASSIGN_STRING "%BASE%\MixerName" Mic MICROPHONE
+for /f "delims=" %%a in ('reg query "%BASE%\MixerName" /f "" /k 2^>nul') do (
+    echo %%a | findstr /b /i "%BASE%\MixerName" >nul
+    if errorlevel 1 goto :END_LOOP
+    SET LANGUAGE=%%~na
+    CALL :ASSIGN_STRING "%%a" Spk SPEAKER
+    CALL :ASSIGN_STRING "%%a" Mic MICROPHONE
+)
+:END_LOOP
+reg query "%BASE%\VID_041E&PID_3221" >nul 2>&1
+if %errorlevel% EQU 0 CALL :ASSIGN_STRING "%BASE%\VID_041E&PID_3221" MixerName MIXER
+reg query "%BASE%\VID_041E&PID_322F" >nul 2>&1
+if %errorlevel% EQU 0 CALL :ASSIGN_STRING "%BASE%\VID_041E&PID_322F" MixerName MIXER
+if "%MIXER%" EQU "" goto MIXER_MISSING
 
 :DEVICE
 FOR /F "skip=2 tokens=1* delims=:" %%a IN ('pnputil -enum-devices /connected /class "AudioEndpoint"') DO CALL :CHECK_ENDPOINTS "%%a" "%%b"
