@@ -87,6 +87,10 @@ PAUSE>nul
 EXIT
 
 :SUCCESS
+ECHO. Language: %LANGUAGE%
+ECHO. Mixer: %MIXER%
+ECHO. Speaker: %SPEAKER%
+ECHO. Microphone: %MICROPHONE%
 ECHO. Sound Blaster Recon 3D Control Panel configured Successfully
 PAUSE>nul
 exit
