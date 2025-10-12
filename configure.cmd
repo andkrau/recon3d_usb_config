@@ -90,37 +90,37 @@ goto :EOF
 echo.
 echo. Speaker not detected!
 pause>nul
-EXIT
+exit
 
 :CAPTURE_NOT_DETECTED
 echo.
 echo. Microphone not detected!
 pause>nul
-EXIT
+exit
 
 :REG_MISSING
 echo.
 echo. Registry entries not found!
 pause>nul
-EXIT
+exit
 
 :MIXER_MISSING
 echo.
 echo. Could not find sound mixer!
 pause>nul
-EXIT
+exit
 
 :UNSUPPORTED
 echo.
 echo. Windows 10 or above is required!
 pause>nul
-EXIT
+exit
 
 :SUCCESS
 echo. Language: %LANGUAGE%
 echo. Mixer: %MIXER%
 echo. Speaker: %SPEAKER%
 echo. Microphone: %MICROPHONE%
-echo. Sound Blaster Recon 3D Control Panel configured Successfully
+echo. Sound Blaster Recon 3D Control Panel configured successfully
 pause>nul
 exit
