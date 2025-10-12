@@ -121,6 +121,6 @@ echo. Language: %LANGUAGE%
 echo. Mixer: %MIXER%
 echo. Speaker: %SPEAKER%
 echo. Microphone: %MICROPHONE%
-echo. Sound Blaster Recon 3D Control Panel configured successfully
+echo. Sound Blaster Recon 3D Control Panel configured successfully!
 pause>nul
 exit
