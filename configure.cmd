@@ -1,5 +1,5 @@
 @echo off
-title Recon3D Configuration
+title SB E-Series Configuration
 color 9F
 set RENDER_FOUND=FALSE
 set CAPTURE_FOUND=FALSE
@@ -14,14 +14,13 @@ set COUNT=0
 chcp 65001
 cls
 echo.
-echo.       ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓  ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓  ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓  ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓  ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓  ▓▓▓▓▓▓▓▓░▓▓▓▓▓▓▓░
-echo.      ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░ ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░ ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░ ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░ ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░       ▓▓  ▓▓   ░▓▓
-echo.     ░▓▓▓▓             ░▓▓▓▓       ▓▓▓▓▓ ░▓▓▓▓             ▒▓▓▓▓       ▓▓▓▓▓ ▒▓▓▓▓       ▓▓▓▓▓ ▒▓▓▓▓▓▓▓▒ ▓▓▒   ▓▓
-echo.     ▓▓▓▓              ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓  ▓▓▓▓              ▓▓▓▓        ▓▓▓▓  ▓▓▓▓        ▓▓▓▓        ▓▓  ▓▓   ▒▓▓
-echo.    ▓▓▓▓▒             ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░ ▓▓▓▓▒             ▓▓▓▓▓       ▓▓▓▓░ ▓▓▓▓▒       ▓▓▓▓░ ▓▓▓▓▓▓▓▓  ▓▓▓▓▓▓▓▓
-echo.   ░▓▓▓▓             ▒▓▓▓▓             ▒▓▓▓▓             ▒▓▓▓▓       ▓▓▓▓▓ ▒▓▓▓▓       ▓▓▓▓▓
-echo.   ▓▓▓▓              ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓  ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓  ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓  ▓▓▓▓        ▓▓▓▓
-echo.  ▓▓▓▓▓              ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░  ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░  ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓  ▓▓▓▓▒       ▓▓▓▓░
+echo. ░▒▓████████▓▒     ░░▒▓███████▓▒░▒▓████████▓▒░▒▓███████▓▒░░▒▓█▓▒░▒▓████████▓▒░░▒▓███████▓▒░
+echo. ░▒▓█▓▒░           ░▒▓█▓▒░      ░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░
+echo. ░▒▓█▓▒░           ░▒▓█▓▒░      ░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░
+echo. ░▒▓██████▓▒░▒▓███▓▒░▒▓██████▓▒░░▒▓██████▓▒░ ░▒▓███████▓▒░░▒▓█▓▒░▒▓██████▓▒░  ░▒▓██████▓▒░
+echo. ░▒▓█▓▒░                  ░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░             ░▒▓█▓▒░
+echo. ░▒▓█▓▒░                  ░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░             ░▒▓█▓▒░
+echo. ░▒▓████████▓░     ░▒▓███████▓▒░░▒▓████████▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓████████▓▒░▒▓███████▓▒░
 echo.
 
 :VERSION
@@ -43,10 +42,35 @@ for /f "delims=" %%a in ('reg query "%BASE%\MixerName" /f "" /k 2^>nul') do (
     call :ASSIGN_STRING "%%a" Mic MICROPHONE
 )
 :END_LOOP
-reg query "%BASE%\VID_041E&PID_3221" >nul 2>&1
-if %errorlevel% EQU 0 call :ASSIGN_STRING "%BASE%\VID_041E&PID_3221" MixerName MIXER
-reg query "%BASE%\VID_041E&PID_322F" >nul 2>&1
-if %errorlevel% EQU 0 call :ASSIGN_STRING "%BASE%\VID_041E&PID_322F" MixerName MIXER
+
+:: SB0910 X-Fi Xtreme Audio Karaoke
+call :CHECK_DEVICE PID_3041
+:: SB1090 X-Fi Surround 5.1
+call :CHECK_DEVICE PID_3042
+:: SB1100 X-Fi Go!
+call :CHECK_DEVICE PID_30E0
+:: SB1095 X-Fi Surround 5.1 Pro
+call :CHECK_DEVICE PID_30DF
+:: SB1095A X-Fi Surround 5.1 Pro SBX
+call :CHECK_DEVICE PID_3237
+:: SB1095B X-Fi Surround 5.1 Pro SBX
+call :CHECK_DEVICE PID_3263
+:: SB1240 X-Fi HD THX
+call :CHECK_DEVICE PID_30D7
+:: SB1240A X-Fi HD SBX
+call :CHECK_DEVICE PID_3232
+:: SB1290 X-Fi Go! Pro
+call :CHECK_DEVICE PID_30DD
+:: SB1290A X-Fi Go! Pro
+call :CHECK_DEVICE PID_3233
+:: SB1300 Recon3D THX
+call :CHECK_DEVICE PID_3221
+:: SB1300A Recon3D SBX
+call :CHECK_DEVICE PID_322F
+:: SB1560 Omni Surround 5.1
+call :CHECK_DEVICE PID_322C
+:: SB1540 R3/A6U
+call :CHECK_DEVICE PID_322B
 if "%MIXER%" EQU "" goto :MIXER_MISSING
 
 :DEVICE
@@ -56,6 +80,11 @@ if "%CAPTURE_FOUND%" EQU "FALSE" goto :CAPTURE_NOT_DETECTED
 
 goto :SUCCESS
 
+:CHECK_DEVICE
+reg query "%BASE%\VID_041E&%1" >nul 2>&1
+if %errorlevel% EQU 0 call :ASSIGN_STRING "%BASE%\VID_041E&%1" MixerName MIXER
+goto :EOF
+
 :CHECK_ENDPOINTS
 set "VALUE=%~2"
 if NOT "%VALUE:MMDEVAPI=%" EQU "%VALUE%" set COUNT=1
@@ -64,11 +93,11 @@ if %COUNT% EQU 2 for /f "tokens=*" %%m in ("%~2") do set "DESCRIPTION=%%m"
 if %COUNT% EQU 3 (
   if "%DESCRIPTION%" EQU "%SPEAKER% (%MIXER%)" (
     set RENDER_FOUND=TRUE
-    REG ADD "HKCU\SOFTWARE\Creative Tech\Audio Endpoint Selection\Sound Blaster Recon 3D Control Panel" /v Render /t REG_SZ /d "%ID%" /f >nul
+    reg add "HKCU\SOFTWARE\Creative Tech\Audio Endpoint Selection\Sound Blaster E-Series Control Panel" /v Render /t REG_SZ /d "%ID%" /f >nul
   )
   if "%DESCRIPTION%" EQU "%MICROPHONE% (%MIXER%)" (
     set CAPTURE_FOUND=TRUE
-    REG ADD "HKCU\SOFTWARE\Creative Tech\Audio Endpoint Selection\Sound Blaster Recon 3D Control Panel" /v Capture /t REG_SZ /d "%ID%" /f >nul
+    reg add "HKCU\SOFTWARE\Creative Tech\Audio Endpoint Selection\Sound Blaster E-Series Control Panel" /v Capture /t REG_SZ /d "%ID%" /f >nul
   )
   set DESCRIPTION=""
   set ID=""
@@ -123,6 +152,6 @@ echo. Language: %LANGUAGE%
 echo. Mixer: %MIXER%
 echo. Speaker: %SPEAKER%
 echo. Microphone: %MICROPHONE%
-echo. Sound Blaster Recon 3D Control Panel configured successfully!
+echo. SB E-Series Control Panel configured successfully!
 pause>nul
 exit
